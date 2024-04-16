@@ -43,4 +43,38 @@ export class WatertempService {
       throw error // Optional: re-throw the error for further handling upstream
     }
   }
+
+  /**
+   * Fetches all temperature data by location and year.
+   *
+   * @param {string} location - The location.
+   * @returns {Promise<Array<object>>} The fetched users.
+   */
+  async fetchTemperaturesByLocationAndYear (location) {
+    try {
+      // Fetch data from MongoDB
+      const rawData = await this.watertempModel.find({ badplats: location }).lean()
+
+      // Convert raw data to a format suitable for DataFrame manipulation
+      // Including converting the mattidpunkt from string to Date and extracting the month
+      const formattedData = rawData.map(row => ({
+        ...row,
+        date: new Date(row.mattidpunkt).toISOString().split('T')[0] // Convert mattidpunkt to Date and extract month
+      }))
+
+      // Create a DataFrame from the formatted data
+      const df = new DataFrame(formattedData)
+
+      // Group by month and calculate average temperature
+      const result = df.groupBy('date').aggregate(group => ({
+        averageTemp: group.stat.mean('vattentemperatur')
+      })).rename('aggregation', 'averageTemp')
+
+      // Sort results by month
+      return result.sortBy('date').toDict()
+    } catch (error) {
+      console.error('Error processing temperatures:', error)
+      throw error
+    }
+  }
 }

@@ -3,20 +3,21 @@
   <div id="temperaturePlot" class="mt-4"></div>
 </div>
 <script>
-  const meanTemp = JSON.parse('<%- meanTemp %>');
+  const data = JSON.parse('<%- data %>');
   const trace1 = {
-    x: meanTemp.badplats,
-    y: meanTemp.aggregation,
-    type: "bar",
+    x: data.date,
+    y: data.averageTemp.map((item) => item.averageTemp),
+    type: "scatter",
     marker: {
       color: "#17a2b8",
     },
   };
 
   const layout = {
-    title: "Mean Temperature by Location",
+    title: "Daily Average Temperature",
     xaxis: {
-      title: "Location",
+      title: "Date",
+      tickformat: "%Y-%m-%d",
     },
     yaxis: {
       title: "Temperature (°C)",

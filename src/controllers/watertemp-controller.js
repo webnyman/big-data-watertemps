@@ -48,4 +48,26 @@ export class WatertempController {
       next(error)
     }
   }
+
+  /**
+   * Render temperatures by location and year.
+   *
+   * @param {object} req - The request object.
+   * @param {object} res - The response object.
+   * @param {Function} next - The next middleware function.
+   * @returns {Promise<void>}
+   * @throws {Error} If the users could not be fetched.
+   */
+  async monthlyByLocation (req, res, next) {
+    try {
+      const { location } = req.params
+      const data = await this.#service.fetchTemperaturesByLocationAndYear(location)
+      console.log(data)
+      res.render('watertemp/daily', {
+        data: JSON.stringify(data)
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
