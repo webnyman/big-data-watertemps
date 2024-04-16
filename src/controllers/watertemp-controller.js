@@ -38,6 +38,11 @@ export class WatertempController {
    * @throws {Error} If the users could not be fetched.
    */
   async index (req, res, next) {
-   res.render('watertemp/index')
+    try {
+      const meanTemp = await this.#service.fetchTempAndAnalyze()
+      res.json({ meanTemp })
+    } catch (error) {
+      next(error)
+    }
   }
 }

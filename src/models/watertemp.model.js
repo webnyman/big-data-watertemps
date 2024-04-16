@@ -8,18 +8,22 @@
 import mongoose from 'mongoose'
 
 // Create a schema.
-const schema = new mongoose.Schema({
-  badplats: { type: String, required: true },
+const schema = new mongoose.Schema(
+  {
+    badplats: { type: String, required: true },
     geopoint: {
-        lon: { type: Number, required: true },
-        lat: { type: Number, required: true }
+      lon: { type: Number, required: true },
+      lat: { type: Number, required: true }
     },
     mattidpunkt: { type: Date, required: true },
     vattentemperatur: { type: Number, required: true }
-}, {
-  timestamps: true,
-  versionKey: false
-})
+  },
+  {
+    timestamps: true,
+    versionKey: false
+  },
+  { collection: 'watertemps' }
+)
 
 // Create a model using the schema.
 export const Watertemp = mongoose.model('Watertemp', schema)
