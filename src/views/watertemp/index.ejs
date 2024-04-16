@@ -1,7 +1,29 @@
 
-<div>
-  <h1>Water</h1>
-  <ul>
-  </ul>
-  <a href="/water/new">New Water</a>
+<div class="container">
+  <h2 class="mt-5">Temperature Data Visualization</h2>
+  <div id="temperaturePlot" class="mt-4"></div>
 </div>
+<script>
+  const meanTemp = JSON.parse('<%- meanTemp %>');
+  console.log(meanTemp);
+  const trace1 = {
+      x: meanTemp.badplats,
+      y: meanTemp.aggregation,
+      type: 'bar',
+      marker: {
+          color: '#17a2b8'
+      }
+  };
+
+  const layout = {
+      title: 'Mean Temperature by Location',
+      xaxis: {
+          title: 'Location'
+      },
+      yaxis: {
+          title: 'Temperature (°C)'
+      }
+  };
+
+  Plotly.newPlot('temperaturePlot', [trace1], layout);
+</script>

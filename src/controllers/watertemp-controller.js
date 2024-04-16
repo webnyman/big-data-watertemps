@@ -40,7 +40,10 @@ export class WatertempController {
   async index (req, res, next) {
     try {
       const meanTemp = await this.#service.fetchTempAndAnalyze()
-      res.json({ meanTemp })
+      console.log(meanTemp)
+      res.render('watertemp/index', {
+        meanTemp: JSON.stringify(meanTemp)
+      })
     } catch (error) {
       next(error)
     }

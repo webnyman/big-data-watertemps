@@ -34,16 +34,27 @@ try {
 
   // Set various HTTP headers to make the application little more secure (https://www.npmjs.com/package/helmet).
   // (The web application uses external scripts and therefore needs to explicitly trust on cdn.jsdelivr.net.)
-  app.use(helmet())
-  app.use(
-    helmet.contentSecurityPolicy({
+  app.use(helmet({
+    contentSecurityPolicy: {
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'script-src': ["'self'", 'cdn.jsdelivr.net', 'gitlab.lnu.se'],
-        'img-src': ["'self'", 'gitlab.lnu.se', '*.gravatar.com']
+        'script-src': [
+          "'self'",
+          'cdn.jsdelivr.net',
+          'gitlab.lnu.se',
+          'cdn.plot.ly',
+          "'unsafe-inline'", // Allows inline scripts
+          "'unsafe-eval'" // Allows eval(), which libraries like Plotly might use
+        ],
+        'img-src': [
+          "'self'",
+          'gitlab.lnu.se',
+          '*.gravatar.com',
+          'data:' // Allows images to be loaded via data URLs
+        ]
       }
-    })
-  )
+    }
+  }))
   // app.use(helmet({ crossOriginEmbedderPolicy: false }))
   // Set up a morgan logger using the dev format for log entries.
   app.use(logger('dev'))

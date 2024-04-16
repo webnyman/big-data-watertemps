@@ -28,18 +28,14 @@ export class WatertempService {
     try {
       // Fetch data from the database
       const data = await this.watertempModel.find()
-      console.log(this.watertempModel.schema.obj)
-      console.log('Data:', data)
       const formattedData = data.map(doc => doc.toObject())
-
-      console.log('Data:', formattedData)
 
       // Load the data into a DataFrame
       const df = new DataFrame(formattedData)
 
       // Group the data by 'badplats' and calculate the mean temperature
       const result = df.groupBy('badplats').aggregate(group => group.stat.mean('vattentemperatur'))
-
+      console.log(result.toDict())
       // Convert the result to JSON or any other suitable format for response
       return result.toDict()
     } catch (error) {
