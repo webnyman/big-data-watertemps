@@ -43,6 +43,7 @@ try {
           'cdn.jsdelivr.net',
           'gitlab.lnu.se',
           'cdn.plot.ly',
+          'unpkg.com',
           "'unsafe-inline'", // Allows inline scripts
           "'unsafe-eval'" // Allows eval(), which libraries like Plotly might use
         ],
@@ -50,6 +51,8 @@ try {
           "'self'",
           'gitlab.lnu.se',
           '*.gravatar.com',
+          '*.openstreetmap.org',
+          'unpkg.com',
           'data:' // Allows images to be loaded via data URLs
         ]
       }
