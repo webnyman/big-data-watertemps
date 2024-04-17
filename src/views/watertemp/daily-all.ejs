@@ -3,47 +3,66 @@
   <%- include('../partials/spinner') %>
 </div>
 <script>
-  const loader = document.getElementById('loader');
-  const plotDiv = document.getElementById('temperaturePlot');
+  const loader = document.getElementById("loader");
+  const plotDiv = document.getElementById("temperaturePlot");
+  function getlocationNameFromHref() {
+    // Get the current URL from the browser's address bar
+    const currentUrl = window.location.href;
+
+    // Create a URL object from the current URL
+    const url = new URL(currentUrl);
+
+    // Get the pathname from the URL
+    const pathname = url.pathname;
+
+    // Split the pathname into parts using "/" as the delimiter
+    const parts = pathname.split("/");
+
+    // The last part of the path is the last element of the parts array
+    const lastPart = parts[parts.length - 1];
+
+    // Optionally, decode the URI component if you want the unescaped version
+    return decodeURIComponent(lastPart);
+  }
   function hideLoader() {
-        loader.style.display = 'none';
-    }
-      const rawData = JSON.parse('<%- data %>');
+    loader.style.display = "none";
+  }
+  const rawData = JSON.parse('<%- data %>');
 
-      let formattedData = rawData.date.map((date, index) => ({
-          date: date,
-          location: rawData.badplats[index],
-          averageTemp: rawData.averageTemp[index].averageTemp
-      }));
+  let formattedData = rawData.date.map((date, index) => ({
+    date: date,
+    location: rawData.badplats[index],
+    averageTemp: rawData.averageTemp[index].averageTemp,
+  }));
 
-      let groupedData = formattedData.reduce((acc, curr) => {
-          const location = curr.location || 'Unknown';
-          if (!acc[location]) acc[location] = [];
-          acc[location].push(curr);
-          return acc;
-      }, {});
+  let groupedData = formattedData.reduce((acc, curr) => {
+    const location = curr.location || "Unknown";
+    if (!acc[location]) acc[location] = [];
+    acc[location].push(curr);
+    return acc;
+  }, {});
 
-      const traces = Object.keys(groupedData).map(location => ({
-          x: groupedData[location].map(item => item.date),
-          y: groupedData[location].map(item => item.averageTemp),
-          type: 'scatter',
-          mode: 'lines+markers',
-          name: location,
-          marker: {
-              color: '#' + Math.floor(Math.random() * 16777215).toString(16)
-          }
-      }));
+  const traces = Object.keys(groupedData).map((location) => ({
+    x: groupedData[location].map((item) => item.date),
+    y: groupedData[location].map((item) => item.averageTemp),
+    type: "scatter",
+    mode: "lines+markers",
+    name: location,
+    marker: {
+      color: "#" + Math.floor(Math.random() * 16777215).toString(16),
+    },
+  }));
 
-      const layout = {
-          title: 'Daily Average Temperature by Location',
-          xaxis: {
-              title: 'Date',
-              tickformat: '%Y-%m-%d'
-          },
-          yaxis: {
-              title: 'Average Temperature (°C)'
-          }
-      };
+  const layout = {
+    title: "Daily Average Temperature by Location",
+    xaxis: {
+      title: "Date",
+      tickformat: "%Y-%m-%d",
+    },
+    yaxis: {
+      title: "Average Temperature (°C)",
+    },
+  };
 
-      Plotly.newPlot('temperaturePlot', traces, layout).then(hideLoader);
+  Plotly.newPlot("temperaturePlot", traces, layout).then(hideLoader);
 </script>
