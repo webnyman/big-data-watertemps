@@ -97,8 +97,6 @@ export class WatertempService {
       // Create a DataFrame from the formatted data
       const df = new DataFrame(formattedData)
 
-      console.log(df.listColumns())
-
       // Group by date and location, then calculate average temperature
       const result = df.groupBy('date', 'badplats').aggregate(group => ({
         averageTemp: group.stat.mean('vattentemperatur')
