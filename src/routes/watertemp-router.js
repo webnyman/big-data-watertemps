@@ -23,6 +23,10 @@ router.get('/mean',
   (req, res, next) => resolveWatertempController(req).index(req, res, next)
 )
 
-router.get('/:location',
-  (req, res, next) => resolveWatertempController(req).monthlyByLocation(req, res, next)
+router.get('/location/:location',
+  (req, res, next) => resolveWatertempController(req).dailyByLocation(req, res, next)
+)
+
+router.get('/all',
+  (req, res, next) => resolveWatertempController(req).dailyByAllLocations(req, res, next)
 )

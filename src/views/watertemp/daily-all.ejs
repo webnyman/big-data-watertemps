@@ -1,0 +1,49 @@
+<div class="container">
+  <h2 class="mt-5">Temperature Data Visualization</h2>
+  <%- include('../partials/spinner') %>
+</div>
+<script>
+  const loader = document.getElementById('loader');
+  const plotDiv = document.getElementById('temperaturePlot');
+  function hideLoader() {
+        loader.style.display = 'none';
+    }
+      const rawData = JSON.parse('<%- data %>');
+
+      let formattedData = rawData.date.map((date, index) => ({
+          date: date,
+          location: rawData.badplats[index],
+          averageTemp: rawData.averageTemp[index].averageTemp
+      }));
+
+      let groupedData = formattedData.reduce((acc, curr) => {
+          const location = curr.location || 'Unknown';
+          if (!acc[location]) acc[location] = [];
+          acc[location].push(curr);
+          return acc;
+      }, {});
+
+      const traces = Object.keys(groupedData).map(location => ({
+          x: groupedData[location].map(item => item.date),
+          y: groupedData[location].map(item => item.averageTemp),
+          type: 'scatter',
+          mode: 'lines+markers',
+          name: location,
+          marker: {
+              color: '#' + Math.floor(Math.random() * 16777215).toString(16)
+          }
+      }));
+
+      const layout = {
+          title: 'Daily Average Temperature by Location',
+          xaxis: {
+              title: 'Date',
+              tickformat: '%Y-%m-%d'
+          },
+          yaxis: {
+              title: 'Average Temperature (°C)'
+          }
+      };
+
+      Plotly.newPlot('temperaturePlot', traces, layout).then(hideLoader);
+</script>

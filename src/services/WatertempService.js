@@ -70,11 +70,54 @@ export class WatertempService {
         averageTemp: group.stat.mean('vattentemperatur')
       })).rename('aggregation', 'averageTemp')
 
-      // Sort results by month
+      // Sort results by date
       return result.sortBy('date').toDict()
     } catch (error) {
       console.error('Error processing temperatures:', error)
       throw error
     }
+  }
+
+  /**
+   * Fetches all temperature data for all locations and year.
+   *
+   * @returns {Promise<Array<object>>} The fetched users.
+   */
+  async fetchTemperaturesForAllLocations () {
+    try {
+      // Fetch data from MongoDB without filtering by location
+      let rawData = await this.watertempModel.find()
+      // Convert raw data to a format suitable for DataFrame manipulation
+      rawData = rawData.map(doc => doc.toObject())
+      const formattedData = rawData.map(row => ({
+        ...row,
+        date: new Date(row.mattidpunkt).toISOString().split('T')[0] // Convert mattidpunkt to Date and extract the date
+      }))
+
+      // Create a DataFrame from the formatted data
+      const df = new DataFrame(formattedData)
+
+      console.log(df.listColumns())
+
+      // Group by date and location, then calculate average temperature
+      const result = df.groupBy('date', 'badplats').aggregate(group => ({
+        averageTemp: group.stat.mean('vattentemperatur')
+      })).rename('aggregation', 'averageTemp')
+
+      // Sort results by date
+      return result.sortBy('date').toDict()
+    } catch (error) {
+      console.error('Error processing temperatures for all locations:', error)
+      throw error
+    }
+  }
+
+  /**
+   * Returns the possible locations.
+   *
+   * @returns {object} The possible locations.
+   */
+  getLocations () {
+    return this.watertempModel.schema.path('badplats').enumValues
   }
 }

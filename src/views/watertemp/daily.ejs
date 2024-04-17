@@ -1,8 +1,13 @@
 <div class="container">
   <h2 class="mt-5">Temperature Data Visualization</h2>
-  <div id="temperaturePlot" class="mt-4"></div>
+  <%- include('../partials/spinner') %>
 </div>
 <script>
+  const loader = document.getElementById('loader');
+  const plotDiv = document.getElementById('temperaturePlot');
+  function hideLoader() {
+        loader.style.display = 'none';
+    }
   const data = JSON.parse('<%- data %>');
   const trace1 = {
     x: data.date,
@@ -12,17 +17,19 @@
       color: "#17a2b8",
     },
   };
-
+  // Define the layout of the graph
   const layout = {
-    title: "Daily Average Temperature",
+    title: "Daily Average Temperature by Location",
     xaxis: {
       title: "Date",
       tickformat: "%Y-%m-%d",
+      type: "date",
     },
     yaxis: {
       title: "Temperature (°C)",
     },
   };
 
-  Plotly.newPlot("temperaturePlot", [trace1], layout);
+  // Plot using Plotly
+  Plotly.newPlot("temperaturePlot", [trace1], layout).then(hideLoader);
 </script>

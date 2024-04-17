@@ -58,12 +58,34 @@ export class WatertempController {
    * @returns {Promise<void>}
    * @throws {Error} If the users could not be fetched.
    */
-  async monthlyByLocation (req, res, next) {
+  async dailyByLocation (req, res, next) {
     try {
       const { location } = req.params
       const data = await this.#service.fetchTemperaturesByLocationAndYear(location)
       console.log(data)
       res.render('watertemp/daily', {
+        data: JSON.stringify(data)
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+   * Render temperatures by all locations and year.
+   *
+   * @param {object} req - The request object.
+   * @param {object} res - The response object.
+   * @param {Function} next - The next middleware function.
+   * @returns {Promise<void>}
+   * @throws {Error} If the users could not be fetched.
+   */
+  async dailyByAllLocations (req, res, next) {
+    console.log('dailyByAllLocations')
+    try {
+      const data = await this.#service.fetchTemperaturesForAllLocations()
+      console.log(data)
+      res.render('watertemp/daily-all', {
         data: JSON.stringify(data)
       })
     } catch (error) {
