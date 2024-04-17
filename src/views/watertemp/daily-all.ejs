@@ -33,7 +33,7 @@
     date: date,
     location: rawData.badplats[index],
     averageTemp: rawData.averageTemp[index].averageTemp,
-  }));
+  })).filter((item) => item.location !== null);
 
   let groupedData = formattedData.reduce((acc, curr) => {
     const location = curr.location || "Unknown";
