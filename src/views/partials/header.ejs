@@ -7,11 +7,24 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="./users/register">Lägg till</a>
+          <a class="nav-link" href="./watertemp/all">Samtliga sjöar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./users/">Uppdatera/Radera</a>
+        <!-- Dropdown Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Välj sjö:
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="./watertemp/location/Stöcksjöbadet">Stöcksjöbadet</a></li>
+            <li><a class="dropdown-item" href="./watertemp/location/Ljumviken Havsbad">Ljumviken Havsbad</a></li>
+            <li><a class="dropdown-item" href="./watertemp/location/Kärleksviken">Kärleksviken</a></li>
+            <li><a class="dropdown-item" href="./watertemp/location/Bölesholmarna">Bölesholmarna</a></li>
+            <li><a class="dropdown-item" href="./watertemp/location/Nydalabadet">Nydalabadet</a></li>
+            <li><a class="dropdown-item" href="./watertemp/location/Bettnessand Havsbad">Bettnessand Havsbad</a></li>
+            <li><a class="dropdown-item" href="./watertemp/location/Länkebo Havsbad">Länkebo Havsbad</a></li>
+          </ul>
         </li>
+        <!-- End of Dropdown Menu -->
         <li class="nav-item">
           <a class="nav-link" href="./users/logout">Logga ut</a>
         </li>

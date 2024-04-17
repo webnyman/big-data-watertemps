@@ -4,7 +4,6 @@
  * @author Björn Nyman
  * @version 1.0.0
  */
-
 /**
  * Encapsulates a controller.
  */
@@ -18,6 +17,7 @@ export class HomeController {
  * @param {Function} next - Express next middleware function.
  */
   index (req, res, next) {
-    res.render('home/index')
+    res.render('home/index', {
+    })
   }
 }

@@ -7,8 +7,6 @@
 
 import express from 'express'
 
-import isLoggedIn from '../middleware/index-middleware.js'
-
 export const router = express.Router()
 
 /**
@@ -19,6 +17,6 @@ export const router = express.Router()
  */
 const resolveHomeController = (req) => req.app.get('container').resolve('HomeController')
 
-router.get('/', isLoggedIn,
+router.get('/',
   (req, res, next) => resolveHomeController(req).index(req, res, next)
 )
