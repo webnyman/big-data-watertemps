@@ -1,5 +1,5 @@
 <!-- This is the home page of the website. It contains a brief description of the project and a picture of Umeå. -->
-  <div class="container-md">
+  <div class="container-sm">
     <h3>Historiska badvattentemperaturer 2019 från IoT projektet i Umeå</h3>
     <br />
     <p>
@@ -15,7 +15,7 @@
       vissa perioder, vanligtvis för att nätverket var nere just då, men det kan
       även vara så att sensorn inte placerats ut.
     </p>
-    <div class="container-md">
+    <div class="container-sm">
       <div id="map" style="height: 400px;"></div>
   </div>
   <script>
@@ -28,7 +28,7 @@
   { name: "Bölesholmarna", geopoint: { lng: 20.22552, lat: 63.825861 }, url: "/watertemp/location/Bölesholmarna" },
   { name: "Nydalabadet", geopoint: { lng: 20.33982, lat: 63.836347 }, url: "/watertemp/location/Nydalabadet" },
 ];
-const map = L.map('map').setView([63.7, 20], 9); // Set the initial position and zoom level of the map
+const map = L.map('map').setView([63.75, 20.3], 10); // Set the initial position and zoom level of the map
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
