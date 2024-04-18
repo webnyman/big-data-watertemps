@@ -69,7 +69,7 @@
   Plotly.newPlot("temperaturePlot", traces, layout).then(hideLoader);
 </script>
 <script>
-  var BASE_URL = '<%= baseURL %>';
+  let BASE_URL = "<%= baseURL %>";
   document.addEventListener("DOMContentLoaded", function () {
     const myPlot = document.getElementById("temperaturePlot"); // Ensure you have a reference to your Plotly graph
 
