@@ -3,6 +3,7 @@
   <%- include('../partials/spinner') %>
 </div>
 <script>
+  // Get the loader and plot elements
   const loader = document.getElementById("loader");
   const plotDiv = document.getElementById("temperaturePlot");
   function getlocationNameFromHref() {
@@ -24,11 +25,13 @@
     // Optionally, decode the URI component if you want the unescaped version
     return decodeURIComponent(lastPart);
   }
+  // Hide the loader when the plot is ready
   function hideLoader() {
     loader.style.display = "none";
   }
   const rawData = JSON.parse('<%- data %>');
 
+  // Format the data for Plotly
   let formattedData = rawData.date
     .map((date, index) => ({
       date: date,
@@ -54,7 +57,7 @@
       color: "#" + Math.floor(Math.random() * 16777215).toString(16),
     },
   }));
-
+  // Define the layout of the graph
   const layout = {
     title: "Daily Average Temperature by Location",
     xaxis: {
@@ -65,11 +68,13 @@
       title: "Average Temperature (°C)",
     },
   };
-
+  // Plot using Plotly
   Plotly.newPlot("temperaturePlot", traces, layout).then(hideLoader);
 </script>
 <script>
+  // Define the base URL for the application
   let BASE_URL = "<%= baseURL %>";
+  // Add an event listener for the DOMContentLoaded event
   document.addEventListener("DOMContentLoaded", function () {
     const myPlot = document.getElementById("temperaturePlot"); // Ensure you have a reference to your Plotly graph
 
