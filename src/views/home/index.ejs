@@ -19,6 +19,7 @@
     <div id="map" style="height: 400px"></div>
   </div>
   <script>
+    // Define the locations to be displayed on the map
     var BASE_URL = '<%= baseURL %>';
     const locations = [
       {
@@ -57,13 +58,16 @@
         url: BASE_URL + "watertemp/location/Nydalabadet",
       },
     ];
+    // Create a map and add the locations as markers
     const map = L.map("map").setView([63.75, 20.3], 10); // Set the initial position and zoom level of the map
 
+    // Add the OpenStreetMap tiles to the map
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: "© OpenStreetMap",
     }).addTo(map);
 
+    // Add markers for each location with a popup showing the name and a link to the temperature data
     locations.forEach((location) => {
       const marker = L.marker([
         location.geopoint.lat,
