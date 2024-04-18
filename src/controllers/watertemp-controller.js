@@ -4,7 +4,6 @@
  * @author Björn Nyman
  * @version 1.0.0
  */
-import cryptoRandomString from 'crypto-random-string'
 import { WatertempService } from '../services/WatertempService.js'
 
 /**
@@ -25,7 +24,6 @@ export class WatertempController {
    */
   constructor (service = new WatertempService()) {
     this.#service = service
-    this.state = cryptoRandomString({ length: 128 })
   }
 
   /**
