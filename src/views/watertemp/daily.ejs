@@ -3,8 +3,10 @@
   <%- include('../partials/spinner') %>
 </div>
 <script>
+  // Get the loader and plot elements
   const loader = document.getElementById('loader');
   const plotDiv = document.getElementById('temperaturePlot');
+  // Function to extract the location name from the URL
   function getlocationNameFromHref() {
     // Get the current URL from the browser's address bar
     const currentUrl = window.location.href;
@@ -24,9 +26,12 @@
     // Optionally, decode the URI component if you want the unescaped version
     return decodeURIComponent(lastPart);
   }
+  // Hide the loader when the plot is ready
   function hideLoader() {
         loader.style.display = 'none';
     }
+
+  // Extract the data from the JSON string
   const data = JSON.parse('<%- data %>');
   const trace1 = {
     x: data.date,
