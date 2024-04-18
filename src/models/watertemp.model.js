@@ -10,7 +10,19 @@ import mongoose from 'mongoose'
 // Create a schema.
 const schema = new mongoose.Schema(
   {
-    badplats: { type: String, required: true },
+    badplats: {
+      type: String,
+      required: true,
+      enum: [
+        'Bettnessand Havsbad',
+        'Stöcksjöbadet',
+        'Länkebo Havsbad',
+        'Ljumviken Havsbad',
+        'Kärleksviken',
+        'Bölesholmarna',
+        'Nydalabadet'
+      ]
+    },
     geopoint: {
       lon: { type: Number, required: true },
       lat: { type: Number, required: true }
