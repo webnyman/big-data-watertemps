@@ -39,7 +39,7 @@ export class WatertempController {
     try {
       const meanTemp = await this.#service.fetchTempAndAnalyze()
       console.log(meanTemp)
-      res.render('watertemp/index', {
+      res.render('watertemp/mean-year', {
         meanTemp: JSON.stringify(meanTemp)
       })
     } catch (error) {
