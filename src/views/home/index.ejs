@@ -1,44 +1,78 @@
 <!-- This is the home page of the website. It contains a brief description of the project and a picture of Umeå. -->
+<div class="container-sm">
+  <h3>Historiska badvattentemperaturer 2019 från IoT projektet i Umeå</h3>
+  <br />
+  <p>
+    Välkommen till min sida för att visualisera historiska badvattentemperaturer
+    från IoT projektet i Umeå. Här kan du se medeltemperaturen för varje
+    badplats.
+  </p>
+  <p>
+    Under sommaren 2019 genomfördes en test med automatisk mätning av
+    badvattentemperaturer vid vissa av kommunens publika badplatser. Mätningarna
+    genomfördes inom ramen för IoT projektet och resultaten från dessa visades
+    kontinuerligt på kommunens hemsida. Data kan saknas för vissa perioder,
+    vanligtvis för att nätverket var nere just då, men det kan även vara så att
+    sensorn inte placerats ut.
+  </p>
   <div class="container-sm">
-    <h3>Historiska badvattentemperaturer 2019 från IoT projektet i Umeå</h3>
-    <br />
-    <p>
-      Välkommen till min sida för att visualisera historiska
-      badvattentemperaturer från IoT projektet i Umeå. Här kan du se
-      medeltemperaturen för varje badplats.
-    </p>
-    <p>
-      Under sommaren 2019 genomfördes en test med automatisk mätning av
-      badvattentemperaturer vid vissa av kommunens publika badplatser.
-      Mätningarna genomfördes inom ramen för IoT projektet och resultaten från
-      dessa visades kontinuerligt på kommunens hemsida. Data kan saknas för
-      vissa perioder, vanligtvis för att nätverket var nere just då, men det kan
-      även vara så att sensorn inte placerats ut.
-    </p>
-    <div class="container-sm">
-      <div id="map" style="height: 400px;"></div>
+    <div id="map" style="height: 400px"></div>
   </div>
   <script>
+    var BASE_URL = '<%= baseURL %>';
     const locations = [
-  { name: "Stöcksjöbadet", geopoint: { lng: 20.194019, lat: 63.774792 }, url: "/watertemp/location/Stöcksjöbadet" },
-  { name: "Länkebo Havsbad", geopoint: { lng: 19.995263, lat: 63.651346 }, url: "/watertemp/location/Länkebo Havsbad" },
-  { name: "Bettnessand Havsbad", geopoint: { lng: 20.092299, lat: 63.662343 }, url: "/watertemp/location/Bettnessand Havsbad" },
-  { name: "Ljumviken Havsbad", geopoint: { lng: 20.367119, lat: 63.694942 }, url: "/watertemp/location/Ljumviken Havsbad" },
-  { name: "Kärleksviken", geopoint: { lng: 20.355746, lat: 63.817652 }, url: "/watertemp/location/Kärleksviken" },
-  { name: "Bölesholmarna", geopoint: { lng: 20.22552, lat: 63.825861 }, url: "/watertemp/location/Bölesholmarna" },
-  { name: "Nydalabadet", geopoint: { lng: 20.33982, lat: 63.836347 }, url: "/watertemp/location/Nydalabadet" },
-];
-const map = L.map('map').setView([63.75, 20.3], 10); // Set the initial position and zoom level of the map
+      {
+        name: "Stöcksjöbadet",
+        geopoint: { lng: 20.194019, lat: 63.774792 },
+        url: BASE_URL + "watertemp/location/Stöcksjöbadet",
+      },
+      {
+        name: "Länkebo Havsbad",
+        geopoint: { lng: 19.995263, lat: 63.651346 },
+        url: BASE_URL + "watertemp/location/Länkebo Havsbad",
+      },
+      {
+        name: "Bettnessand Havsbad",
+        geopoint: { lng: 20.092299, lat: 63.662343 },
+        url: BASE_URL + "watertemp/location/Bettnessand Havsbad",
+      },
+      {
+        name: "Ljumviken Havsbad",
+        geopoint: { lng: 20.367119, lat: 63.694942 },
+        url: BASE_URL + "watertemp/location/Ljumviken Havsbad",
+      },
+      {
+        name: "Kärleksviken",
+        geopoint: { lng: 20.355746, lat: 63.817652 },
+        url: BASE_URL + "watertemp/location/Kärleksviken",
+      },
+      {
+        name: "Bölesholmarna",
+        geopoint: { lng: 20.22552, lat: 63.825861 },
+        url: BASE_URL + "watertemp/location/Bölesholmarna",
+      },
+      {
+        name: "Nydalabadet",
+        geopoint: { lng: 20.33982, lat: 63.836347 },
+        url: BASE_URL + "watertemp/location/Nydalabadet",
+      },
+    ];
+    const map = L.map("map").setView([63.75, 20.3], 10); // Set the initial position and zoom level of the map
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '© OpenStreetMap'
-}).addTo(map);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "© OpenStreetMap",
+    }).addTo(map);
 
-locations.forEach((location) => {
-  const marker = L.marker([location.geopoint.lat, location.geopoint.lng]).addTo(map);
-  marker.bindPopup(`<b>${location.name}</b><br><a href="${location.url}">Visa temperaturer</a>`);
-});
-
+    locations.forEach((location) => {
+      const marker = L.marker([
+        location.geopoint.lat,
+        location.geopoint.lng,
+      ]).addTo(map);
+      marker.bindPopup(
+        `<b>${location.name}</b><br><a href="${location.url}">Visa temperaturer</a>`
+      );
+    });
   </script>
-<!-- /container -->
+  <!-- /container -->
+</div>

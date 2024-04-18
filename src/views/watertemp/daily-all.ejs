@@ -29,11 +29,13 @@
   }
   const rawData = JSON.parse('<%- data %>');
 
-  let formattedData = rawData.date.map((date, index) => ({
-    date: date,
-    location: rawData.badplats[index],
-    averageTemp: rawData.averageTemp[index].averageTemp,
-  })).filter((item) => item.location !== null);
+  let formattedData = rawData.date
+    .map((date, index) => ({
+      date: date,
+      location: rawData.badplats[index],
+      averageTemp: rawData.averageTemp[index].averageTemp,
+    }))
+    .filter((item) => item.location !== null);
 
   let groupedData = formattedData.reduce((acc, curr) => {
     const location = curr.location || "Unknown";
@@ -67,19 +69,20 @@
   Plotly.newPlot("temperaturePlot", traces, layout).then(hideLoader);
 </script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const myPlot = document.getElementById('temperaturePlot'); // Ensure you have a reference to your Plotly graph
-  
-      myPlot.on('plotly_legendclick', function(data) {
-          var legendItem = data.data[data.curveNumber].name; // Get the name of the legend item
-  
-          // Define your base URL or routing logic here
-          var baseURL = '/watertemp/location/';
-  
-          // Redirect to the URL corresponding to the legend item clicked
-          window.location.href = baseURL + encodeURIComponent(legendItem);
-  
-          return false; // Prevent default behavior of legend item click
-      });
+  var BASE_URL = '<%= baseURL %>';
+  document.addEventListener("DOMContentLoaded", function () {
+    const myPlot = document.getElementById("temperaturePlot"); // Ensure you have a reference to your Plotly graph
+
+    myPlot.on("plotly_legendclick", function (data) {
+      var legendItem = data.data[data.curveNumber].name; // Get the name of the legend item
+
+      // Define your base URL or routing logic here with current base URL
+      var baseURL = BASE_URL + "watertemp/location/";
+
+      // Redirect to the URL corresponding to the legend item clicked
+      window.location.href = baseURL + encodeURIComponent(legendItem);
+
+      return false; // Prevent default behavior of legend item click
+    });
   });
-  </script>
+</script>
