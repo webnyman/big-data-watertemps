@@ -25,9 +25,7 @@
   "dependencies": {
     "@lnu/eslint-config": "^1.1.10",
     "babel-cli": "^6.26.0",
-    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
-    "crypto": "^1.0.1",
     "dataframe-js": "^1.4.4",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
@@ -36,7 +34,6 @@
     "express-session": "^1.18.0",
     "helmet": "^7.1.0",
     "http-errors": "^2.0.0",
-    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.0",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.2",
