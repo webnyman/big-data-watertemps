@@ -35,7 +35,6 @@ export class WatertempService {
 
       // Group the data by 'badplats' and calculate the mean temperature
       const result = df.groupBy('badplats').aggregate(group => group.stat.mean('vattentemperatur'))
-      console.log(result.toDict())
       // Convert the result to JSON or any other suitable format for response
       return result.toDict()
     } catch (error) {

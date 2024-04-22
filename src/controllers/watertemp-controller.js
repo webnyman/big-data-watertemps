@@ -38,7 +38,6 @@ export class WatertempController {
   async index (req, res, next) {
     try {
       const meanTemp = await this.#service.fetchTempAndAnalyze()
-      console.log(meanTemp)
       res.render('watertemp/mean-year', {
         meanTemp: JSON.stringify(meanTemp)
       })
@@ -60,7 +59,6 @@ export class WatertempController {
     try {
       const { location } = req.params
       const data = await this.#service.fetchTemperaturesByLocationAndYear(location)
-      console.log(data)
       res.render('watertemp/daily', {
         data: JSON.stringify(data)
       })
@@ -79,10 +77,8 @@ export class WatertempController {
    * @throws {Error} If the users could not be fetched.
    */
   async dailyByAllLocations (req, res, next) {
-    console.log('dailyByAllLocations')
     try {
       const data = await this.#service.fetchTemperaturesForAllLocations()
-      console.log(data)
       res.render('watertemp/daily-all', {
         data: JSON.stringify(data)
       })

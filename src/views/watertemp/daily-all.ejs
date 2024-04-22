@@ -9,19 +9,14 @@
   function getlocationNameFromHref() {
     // Get the current URL from the browser's address bar
     const currentUrl = window.location.href;
-
     // Create a URL object from the current URL
     const url = new URL(currentUrl);
-
     // Get the pathname from the URL
     const pathname = url.pathname;
-
     // Split the pathname into parts using "/" as the delimiter
     const parts = pathname.split("/");
-
     // The last part of the path is the last element of the parts array
     const lastPart = parts[parts.length - 1];
-
     // Optionally, decode the URI component if you want the unescaped version
     return decodeURIComponent(lastPart);
   }
